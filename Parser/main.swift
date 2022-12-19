@@ -117,7 +117,7 @@ extension Substring.UnicodeScalarView {
                 self = start
                 return nil
             }
-            string.append("\(scalar)")
+            string.append(Character(scalar))
         }
         guard let double = Double(string) else {
             self = start
