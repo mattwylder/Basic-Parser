@@ -110,7 +110,20 @@ extension Substring.UnicodeScalarView {
         guard let head = self.first, CharacterSet.decimalDigits.contains(head) else {
             return nil
         }
-        return nil
+        let start = self
+        var string = ""
+        while let scalar = self.popFirst() {
+            guard CharacterSet.decimalDigits.contains(scalar) else {
+                self = start
+                return nil
+            }
+            string.append("\(scalar)")
+        }
+        guard let double = Double(string) else {
+            self = start
+            return nil
+        }
+        return Token.number(double)
     }
     
     mutating func readString() -> Token? {
@@ -132,4 +145,11 @@ extension Substring.UnicodeScalarView {
         self = start
         return nil
     }
+}
+
+do {
+    let result = try tokenize("let foo = \"bar\"")
+    print(result)
+} catch {
+    print(error)
 }
