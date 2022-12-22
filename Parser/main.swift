@@ -148,7 +148,7 @@ extension Substring.UnicodeScalarView {
 }
 
 do {
-    let result = try tokenize("let foo = \"bar\"")
+    let result = try tokenize("let foo = 5")
     print(result)
 } catch {
     print(error)
